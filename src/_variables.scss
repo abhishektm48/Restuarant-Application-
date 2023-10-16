@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Francois+One&family=Noto+Sans&family=Roboto&family=Rubik&family=Signika:wght@700&family=Tilt+Neon&display=swap');
+
+
+$primary-font-colors: (
+    'light': rgb(212, 135, 235),
+    'medium':rgb(248, 35, 142),
+    'dark': rgb(255, 0, 0)
+);
+$primary-bg-color: #d1d40d;
+$primary-font: noto sans;
+$logo-font: Francois One;
+
+body{
+    background-color: #f5f4f4;
+}
+
+// .container{
+//     max-width: 1000px;
+//     margin: auto;
+// }
+
+// section{
+//     margin: 80px 0px;
+// }
+

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Hero from './Hero';
+import SpecialDishes from './SpecialDishes';
 
 function Menu() {
 
@@ -12,14 +13,14 @@ function Menu() {
         setMenu(data.meals)
     }
 
-    console.log(menu)
-    const itemDetails = menu.map((item) => {
-        return <section>
-            <img src={item.strMealThumb} alt='img' />
-            <h4>{item.strCategory}</h4>
-        </section>
+    // console.log(menu)
+    // const itemDetails = menu.map((item) => {
+    //     return <section>
+    //         <img src={item.strMealThumb} alt='img' />
+    //         <h4>{item.strCategory}</h4>
+    //     </section>
 
-    })
+    // })
 
 
     useEffect(() => {
@@ -27,8 +28,8 @@ function Menu() {
     }, [])
     return (
         <div>
-           {/* {itemDetails} */}
            <Hero />
+           {/* <SpecialDishes allMenus={menu}/> */}
         </div>
     )
 }
