@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Hero from './Hero';
 import SpecialDishes from './SpecialDishes';
+import About from './About';
 
 function Menu() {
 
@@ -29,7 +30,8 @@ function Menu() {
     return (
         <div>
            <Hero />
-           {/* <SpecialDishes allMenus={menu}/> */}
+           <About />
+           <SpecialDishes allMenus={menu}/>
         </div>
     )
 }
