@@ -1,11 +1,17 @@
 import React, { useState } from 'react'
+import Pagination from './Pagination';
 
 const FilteredDishes = (props) => {
 
-    const [filterData, setFilterData] = useState(['']);
+    const [filterData, setFilterData] = useState([]);
     const [activeDishes, setActiveDishes] = useState('Beef');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(4);
 
-    // Filter the items.
+    let indexOfLastPosition = currentPage * itemsPerPage;
+    let indexOfFirstPosition = indexOfLastPosition -itemsPerPage;
+   
+    let showAllDishes = filterData.slice(indexOfFirstPosition, indexOfLastPosition);
 
     const FilterHandleSubmit = (category) =>
     {
@@ -38,14 +44,18 @@ const FilteredDishes = (props) => {
 
     // Display one item when the first rendering
 
-    let oneAndOnlyDish = props.oneDish.map((item) =>
+    let oneAndOnlyDish = props.oneDish.map((item, index) =>
     {
-        return(
-            <li className="rounded-lg">
-                    <img src={item.strMealThumb} />
-                    <h4>{item.strMeal}</h4>
-            </li>
-        )
+        let maxItems = 4
+        if(index < maxItems)
+        {
+            return(
+                <li className="rounded-lg">
+                        <img src={item.strMealThumb} />
+                        <h4>{item.strMeal}</h4>
+                </li>
+            )
+        }
     })
 
     return (
@@ -61,9 +71,14 @@ const FilteredDishes = (props) => {
             </div>
             <div>
                 <ul>
-                    {filterData.length !== 0 ? filterData : <div><h2>Please select anonther dish..!!</h2></div>}
+                    {oneAndOnlyDish !==0 || filterData.length !== 0 ? showAllDishes: <div><h2>Please select anonther dish..!!</h2></div>}
                 </ul>
             </div>
+            <Pagination 
+            filteredData={filterData} 
+            itemsPerPage={itemsPerPage}
+            setCurrentPage={setCurrentPage}
+            />
         </div>
     )
 }

@@ -34,7 +34,7 @@ function Menu() {
         const oneDishData = await response.json()
         setOneDish(oneDishData.meals)
     }
-    console.log('Beef is', oneDish);
+    // console.log('Beef is', oneDish);
 
     useEffect(() => {
         mealData()
