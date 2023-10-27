@@ -1,31 +1,56 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Pagination from './Pagination';
+import CardDish from './CardDish';
+import { AllMenuContext } from './AllMenuContext';
 
-const FilteredDishes = (props) => {
+const FilteredDishes = () => {
 
     const [filterData, setFilterData] = useState([]);
     const [activeDishes, setActiveDishes] = useState('Beef');
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(4);
+    const [categories, setCategories] = useState([]);
+    const [oneDish, setOneDish] = useState([]);
+
+    const allMenus = useContext(AllMenuContext);
 
     let indexOfLastPosition = currentPage * itemsPerPage;
-    let indexOfFirstPosition = indexOfLastPosition -itemsPerPage;
+    let indexOfFirstPosition = indexOfLastPosition - itemsPerPage;
    
     let showAllDishes = filterData.slice(indexOfFirstPosition, indexOfLastPosition);
 
+
+    const mealDataCategories = async () => {
+        const API_KEY = 'https://www.themealdb.com/api/json/v1/1/categories.php'
+        const response = await fetch(API_KEY)
+        const categoryData = await response.json()
+        setCategories(categoryData.categories)
+    }
+    
+    const getOneDish = async () => {
+        const API_KEY = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef'
+        const response = await fetch(API_KEY)
+        const oneDishData = await response.json()
+        setOneDish(oneDishData.meals)
+    }
+    // console.log('Beef is', oneDish);
+
+    useEffect(() =>
+    {
+        mealDataCategories()
+        getOneDish()
+    },[])
+
     const FilterHandleSubmit = (category) =>
     {
-            props.setOneDish([]);
+            setOneDish([]);
             setActiveDishes(category);
-            let filteredItems = props.allMenus.filter((item) => {
+            let filteredItems = allMenus.filter((item) => {
             // console.log('Items are',item);
             return item.strCategory === category
             }).map((dish) => {
             return (
-                <li>
-                    <img src={dish.strMealThumb} alt="" />
-                    <h2>{dish.strMeal}</h2>
-                </li>
+                <CardDish item = {dish}/>
             )
         })
         setFilterData(filteredItems);
@@ -34,7 +59,7 @@ const FilteredDishes = (props) => {
 
     //Display all categories..
 
-    let allCategories = props.allCategories.map((item) => {
+    let allCategories = categories.map((item) => {
         return (
             <li onClick={() => FilterHandleSubmit(item.strCategory)} className={item.strCategory === activeDishes ? 'cursor-pointer text-center bg-black my-4 py-2 text-white font-semibold rounded-xl hover:bg-black duration-300' : 'cursor-pointer text-center bg-green-600 my-4 py-2 text-white font-semibold rounded-xl hover:bg-black duration-300'}>
                 {item.strCategory}
@@ -44,15 +69,15 @@ const FilteredDishes = (props) => {
 
     // Display one item when the first rendering
 
-    let oneAndOnlyDish = props.oneDish.map((item, index) =>
+    let oneAndOnlyDish = oneDish.map((item, index) =>
     {
         let maxItems = 4
         if(index < maxItems)
         {
             return(
-                <li className="rounded-lg">
-                        <img src={item.strMealThumb} />
-                        <h4>{item.strMeal}</h4>
+                <li>
+                    <img src={item.strMealThumb} />
+                    <h4>{item.strMeal}</h4>
                 </li>
             )
         }
@@ -66,12 +91,10 @@ const FilteredDishes = (props) => {
                     {allCategories}
                 </ul>
             </div>
-            <div>
+            <div className='w-44 md:w-fit mt-6'>
+                <ul className='flex'>
                 {oneAndOnlyDish}
-            </div>
-            <div>
-                <ul>
-                    {oneAndOnlyDish !==0 || filterData.length !== 0 ? showAllDishes: <div><h2>Please select anonther dish..!!</h2></div>}
+                    {oneAndOnlyDish !=0 || filterData.length !== 0 ? showAllDishes: <div><h2>Please select anonther dish..!!</h2></div>}
                 </ul>
             </div>
             <Pagination 
