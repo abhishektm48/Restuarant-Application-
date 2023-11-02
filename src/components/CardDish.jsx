@@ -3,11 +3,13 @@ import React from 'react'
 const CardDish = (props) => {
 
   return (
-        <li>
-            <a href="javascript:;" onClick={() => props.showPopUp(props.item.strMeal)}>
-            <img src={props.item.strMealThumb} />
-            <h4>{props.item.strMeal}</h4>
-            </a>
+        <li className='bg-green-600 rounded-md shadow-lg w-3/4'>
+            <div className='p-6 md:flex justify-center items-center'>
+              <a href="javascript:;" onClick={() => props.showPopUp(props.item.strMeal)}>
+                <img src={props.item.strMealThumb} className='w-60 rounded-md'/>
+                  <h4 className='text-center mt-2 font-semibold text-white'>{props.item.strMeal}</h4>
+              </a>
+            </div>
         </li>
   )
 }

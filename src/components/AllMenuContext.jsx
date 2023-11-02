@@ -5,7 +5,7 @@ import Preloader from './Preloader';
 
 export const AllMenuContext = React.createContext();
 
-export const AllMenu = (props) => {
+const AllMenu = (props) => {
 
     //State 
 
@@ -38,3 +38,4 @@ export const AllMenu = (props) => {
   )
 }
 
+export default AllMenu;
