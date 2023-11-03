@@ -9,6 +9,7 @@ const Popup = ({closePopUp, currentDish, addToCartHandler}) =>
    return currentDish === item.strMeal
   }).map((dish) =>
   {
+    // console.log('Images...', dish.strMealThumb);
     return (
         <>
           <img src={dish.strMealThumb} alt="food_img" className='w-60 h-60 rounded-md' />

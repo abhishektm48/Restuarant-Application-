@@ -54,7 +54,9 @@ const FilteredDishes = () => {
             return item.strCategory === category
         }).map((dish) => {
             return (
-                <CardDish item={dish} />
+                <CardDish item={dish} 
+                showPopUp={showPopUpHandler}
+                />
             )
         })
         setFilterData(filteredItems);
@@ -136,6 +138,13 @@ const FilteredDishes = () => {
                                 </div>}
                         </ul>
                     </div>
+                    <div className='flex justify-center'>
+                        <Pagination
+                            filteredData={filterData}
+                            itemsPerPage={itemsPerPage}
+                            setCurrentPage={setCurrentPage}
+                        />
+                    </div>
                 </div>
 
                 {/* Cart section */}
@@ -147,11 +156,6 @@ const FilteredDishes = () => {
                 </div>
 
             </div>
-            <Pagination
-                filteredData={filterData}
-                itemsPerPage={itemsPerPage}
-                setCurrentPage={setCurrentPage}
-            />
         </div>
     )
 }

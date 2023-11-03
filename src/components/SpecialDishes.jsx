@@ -47,6 +47,7 @@ const SpecialDishes = (props) => {
             dishName: cartItemName
         }])
     }
+    // console.log('Images and name', cartItem);
 
 
     return (

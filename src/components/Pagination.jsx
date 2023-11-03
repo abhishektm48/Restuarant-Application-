@@ -20,7 +20,7 @@ const Pagination = (props) =>
 
     let pages = pageNumber.map((item) =>
     {
-        return <li id={item} onClick={showItemsPerPage} className='p-2 border border-green-600 mr-2 cursor-pointer rounded-sm font-semibold hover:bg-green-600 duration-300'>{item}</li>
+        return <li id={item} onClick={showItemsPerPage} className='p-2 border border-green-600 mr-4 cursor-pointer rounded-sm font-semibold hover:bg-green-600 duration-300 hover:text-white'>{item}</li>
     })
     
   return (
