@@ -52,7 +52,7 @@ const SpecialDishes = (props) => {
 
     return (
         <div className="container mt-14 px-10 md:px-28">
-            <h1 className="text-4xl text-center font-semibold text-green-600">Special Dishes</h1>
+            <h1 className="text-4xl text-center font-semibold text-yellow-400">Special Dishes</h1>
             {showPopUp && <Popup
                 closePopUp={closePopupWindow}
                 currentDish={currentDish}

@@ -16,6 +16,8 @@ const FilteredDishes = () => {
     const [cartItem, setCartItem] = useState([]);
     const [showPopUp, setShowPopUp] = useState(false);
     const [currentDish, setCurrentDish] = useState('');
+    const [categoryHeading, setCategoryHeading] = useState('');
+    const [oneCategory, setOneCategory] = useState('');
 
 
     const allMenus = useContext(AllMenuContext);
@@ -49,9 +51,10 @@ const FilteredDishes = () => {
     const FilterHandleSubmit = (category) => {
         setOneDish([]);
         setActiveDishes(category);
+        let categoryName = category;
         let filteredItems = allMenus.filter((item) => {
             // console.log('Items are',item);
-            return item.strCategory === category
+            return item.strCategory === category     
         }).map((dish) => {
             return (
                 <CardDish item={dish} 
@@ -60,29 +63,33 @@ const FilteredDishes = () => {
             )
         })
         setFilterData(filteredItems);
-        // console.log('Button clicked..!!');
+        setCategoryHeading(categoryName);
     }
+
+
+    
 
     //Display all categories..
 
     let allCategories = categories.map((item) => {
         return (
-            <li onClick={() => FilterHandleSubmit(item.strCategory)} className={item.strCategory === activeDishes ? 'cursor-pointer text-center bg-black my-4 py-2 px-4 text-white font-semibold rounded-3xl hover:bg-black duration-300' : 'cursor-pointer text-center bg-green-600 my-4 py-2 px-4 text-white font-semibold rounded-3xl hover:bg-black duration-300'}>
+            <li onClick={() => FilterHandleSubmit(item.strCategory)} className={item.strCategory === activeDishes ? 'cursor-pointer text-center bg-black my-4 py-2 px-4 text-white font-semibold rounded-3xl hover:bg-black hover:border border border-transparent hover:border-yellow-400 duration-300' : 'cursor-pointer text-center bg-yellow-400 my-4 py-2 px-4 text-black font-semibold rounded-3xl hover:bg-black hover:text-white hover:border border border-transparent hover:border-yellow-400 duration-300'}>
                 {item.strCategory}
             </li>
         )
     })
 
     // Display one item when the first rendering
-
+    
     let oneAndOnlyDish = oneDish.map((item, index) => {
         let maxItems = 4
+        let oneCategory = item.strCategory
         if (index < maxItems) {
             return (
-                <li className='bg-green-600 rounded-md shadow-lg w-3/4'>
+                <li className='bg-yellow-400 rounded-md shadow-lg w-3/4'>
                     <div className='p-6 md:flex-col justify-center items-center'>
                         <img className='w-60 rounded-md' src={item.strMealThumb} />
-                        <h4 className='text-center mt-2 font-semibold text-white'>{item.strMeal}</h4>
+                        <h4 className='text-center mt-2 font-semibold text-black'>{item.strMeal}</h4>
                     </div>
                 </li>
             )
@@ -118,7 +125,7 @@ const FilteredDishes = () => {
 
             <div className='md:grid grid-cols-2'>
                 <div className='flex flex-col'>
-                    <h1 className='text-center font-semibold text-green-600 text-3xl my-10'>Select Dishes Based on your taste..!!</h1>
+                    <h1 className='text-center font-semibold text-yellow-400 text-3xl my-10'>Select Dishes Based on your taste..!!</h1>
                     <div>
                         <ul className='flex gap-4 flex-wrap'>
                             {allCategories}
@@ -130,11 +137,12 @@ const FilteredDishes = () => {
                         />}
                     </div>
                     <div className='mt-6'>
+                    {oneDish != 0 ? <h1 className='text-yellow-400 font-semibold text-center text-2xl mb-6'>{activeDishes} based dishes..</h1> : <h1 className='text-yellow-400 font-semibold text-center text-2xl mb-6'>{categoryHeading} based dishes..</h1>}
                         <ul className='flex flex-col justify-between items-center gap-10 md:grid grid-cols-3'>
                             {oneAndOnlyDish}
                             {oneAndOnlyDish != 0 || filterData.length !== 0 ? showAllDishes :
-                                <div className='border-2 border-green-600 rounded-md mt-6'>
-                                    <h2 className='py-4 px-4 text-xl font-semibold text-red-600'>The item you are selected is unavailable now.. Please exolore another one..</h2>
+                                <div className='border-2 border-yellow-400 rounded-md mt-6'>
+                                    <h2 className='py-4 px-4 text-xl font-semibold text-yellow-400'>The item you are selected is unavailable now.. Please exolore another one..</h2>
                                 </div>}
                         </ul>
                     </div>
@@ -151,7 +159,7 @@ const FilteredDishes = () => {
 
                 <div className='my-10'>
                     <div>
-                        <AddToCart cartItem={cartItem} />
+                        {cartItem.length != 0 ? <AddToCart cartItem={cartItem} /> : null}
                     </div>
                 </div>
 

@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Francois+One&family=Noto+Sans&family=Roboto&family=Rubik&family=Signika:wght@700&family=Tilt+Neon&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Francois+One&family=Noto+Sans&family=Playpen+Sans:wght@700&family=Rubik&family=Signika:wght@700&family=Tilt+Neon&display=swap');
+
 
 
 $primary-font-colors: (
@@ -11,7 +12,11 @@ $primary-font: noto sans;
 $logo-font: Francois One;
 
 body{
-    background-color: #0a0a1a;
+    background-color: #06060a;
+}
+
+.hero-image-font{
+    font-family: 'Playpen Sans';
 }
 
 // .container{
